@@ -5,6 +5,7 @@ let bullets = [];
 let newWall;
 let walls = [];
 let gameOver = false;
+let map = "?";
 
 function setup() {
   createCanvas(500, 500);
@@ -31,6 +32,16 @@ function setup() {
 }
 
 function draw() {
+  //mapauswahl:
+  if(map === "?"){
+    fill('black');
+  text("Karte auswählen", 150, 100);
+  if (keyIsPressed){
+    map = "1";
+  }else{
+    return;
+  }
+  }
   //game over:
   if (gameOver != false) {
     if (gameOver === "1") {
