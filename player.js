@@ -129,41 +129,41 @@ class Player {
     if (this.rotation % 360 > 0 && this.rotation < 90) {
       //print("fall1");
 
-      this.x = this.x - sin(this.rotation % 90) * 2;
-      this.y = this.y + cos(this.rotation % 90) * 2;
+      this.x = this.x - sin(this.rotation % 90) * 2.5;
+      this.y = this.y + cos(this.rotation % 90) * 2.5;
     } else {
       if (this.rotation % 360 > 90 && this.rotation < 180) {
         //print("fall2");
 
-        this.x = this.x - cos(this.rotation % 90) * 2;
-        this.y = this.y - sin(this.rotation % 90) * 2;
+        this.x = this.x - cos(this.rotation % 90) * 2.5;
+        this.y = this.y - sin(this.rotation % 90) * 2.5;
       } else {
         if (this.rotation % 360 > 180 && this.rotation < 270) {
           //print("fall3");
 
-          this.x = this.x + sin(this.rotation % 90) * 2;
-          this.y = this.y - cos(this.rotation % 90) * 2;
+          this.x = this.x + sin(this.rotation % 90) * 2.5;
+          this.y = this.y - cos(this.rotation % 90) * 2.5;
         } else {
           if (this.rotation % 360 > 270 && this.rotation < 360) {
             //print("fall4");
 
-            this.x = this.x + cos(this.rotation % 90) * 2;
-            this.y = this.y + sin(this.rotation % 90) * 2;
+            this.x = this.x + cos(this.rotation % 90) * 2.5;
+            this.y = this.y + sin(this.rotation % 90) * 2.5;
           } else {
             if (this.rotation === 0) {
-              this.y -= 2;
+              this.y += 2.5;
             } else {
               if (this.rotation === 90) {
-                this.x += 2;
+                this.x += 2.5;
               } else {
                 if (this.rotation === 180) {
-                  this.y += 2;
+                  this.y -= 2.5;
                 } else {
                   if (this.rotation === 270) {
-                    this.x -= 2;
+                    this.x -= 2.5;
                   } else {
                     if (this.rotation === 360) {
-                      this.y -= 2;
+                      this.y -= 2.5;
                     }
                   }
                 }

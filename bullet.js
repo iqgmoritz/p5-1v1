@@ -17,7 +17,7 @@ class Bullet {
       //print("fall1");
 
       this.x = this.x + sin(this.origRot % 90) * 2;
-      this.y = this.y - cos(this.origRot % 90) * 2;
+      this.y = this.y - cos(this.origRot % 90) * 2
     } else {
       if (this.origRot % 360 > 90 && this.origRot < 180) {
         //print("fall2");
