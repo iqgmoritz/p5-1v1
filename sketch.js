@@ -6,41 +6,34 @@ let newWall;
 let walls = [];
 let gameOver = false;
 let map = "?";
+let theCross;
+let middleBlock;
+let square;
 
 function setup() {
   createCanvas(500, 500);
-  player1 = new Player(100, 100, "red");
-  player2 = new Player(400, 370, "blue");
-  newWall = new Wall(50, 150, 120, 30);
-  walls.push(newWall);
-  newWall = new Wall(150, 60, 30, 120);
-  walls.push(newWall);
-  newWall = new Wall(330, 150, 120, 30);
-  walls.push(newWall);
-  newWall = new Wall(330,60,30,120);
-  walls.push(newWall);
-  newWall = new Wall(50, 300, 120, 30);
-  walls.push(newWall);
-  newWall = new Wall(150, 300, 30, 120);
-  walls.push(newWall);
-  newWall = new Wall(330, 300, 120, 30);
-  walls.push(newWall);
-  newWall = new Wall(330,300,30,120);
-  walls.push(newWall);
-
   angleMode(DEGREES);
+  theCross = createButton("The Cross");
+  theCross.position(50, 150);
+  middleBlock = createButton("Middle Block");
+  middleBlock.position(150, 150);
+  square = createButton("Square");
+  square.position(250, 150);
 }
 
 function draw() {
   //mapauswahl:
   if(map === "?"){
-    fill('black');
+  background('grey');
+  fill('black');
   text("Karte auswählen", 150, 100);
-  if (keyIsPressed){
-    map = "1";
-  }else{
-    return;
-  }
+  theCross.show();
+  theCross.mousePressed(mapTheCross);
+  middleBlock.show();
+  middleBlock.mousePressed(mapMiddleBlock);
+  square.show();
+  square.mousePressed(mapSquare);
+  return;
   }
   //game over:
   if (gameOver != false) {
@@ -206,5 +199,100 @@ function keyPressed() {
     gameOver = false;
     setup();
     draw();
+    if (map === "TheCross"){
+      mapTheCross();
+    }
+    if (map === "MiddleBlock"){
+      mapMiddleBlock();
+    }
+    if (map === "Square"){
+      mapSquare();
+    }
   }
+  if (keyCode === 27){
+  map = "?"
+  setup();
+  draw();
+  bullets = [];
+  walls = [];
+  }
+}
+
+function mapTheCross() {
+  map = "TheCross";
+  print("thecross");
+  theCross.hide();
+  middleBlock.hide();
+  square.hide();
+  newWall = new Wall(50, 150, 120, 30);
+  walls.push(newWall);
+  newWall = new Wall(150, 60, 30, 120);
+  walls.push(newWall);
+  newWall = new Wall(330, 150, 120, 30);
+  walls.push(newWall);
+  newWall = new Wall(330,60,30,120);
+  walls.push(newWall);
+  newWall = new Wall(50, 300, 120, 30);
+  walls.push(newWall);
+  newWall = new Wall(150, 300, 30, 120);
+  walls.push(newWall);
+  newWall = new Wall(330, 300, 120, 30);
+  walls.push(newWall);
+  newWall = new Wall(330,300,30,120);
+  walls.push(newWall);
+
+  player1 = new Player(100, 100, "red");
+  player2 = new Player(400, 370, "blue");
+}
+
+function mapMiddleBlock(){
+  map = "MiddleBlock";
+  print("middleblock");
+  theCross.hide();
+  middleBlock.hide();
+  square.hide();
+  newWall = new Wall(150, 150, 200, 200)
+  walls.push(newWall);
+  newWall = new Wall(225, 75, 50, 350);
+  walls.push(newWall);
+  newWall = new Wall(75,225, 350, 50);
+  walls.push(newWall);
+  newWall = new Wall(0, 0, 100, 100);
+  walls.push(newWall);
+  newWall = new Wall(400, 400, 100, 100);
+  walls.push(newWall);
+  newWall = new Wall(0, 400, 100, 100);
+  walls.push(newWall);
+  newWall = new Wall(400, 0, 100, 100);
+  walls.push(newWall);
+  player1 = new Player(125, 125, "red");
+  player2 = new Player(375, 375, "blue");
+}
+
+function mapSquare(){
+  map = "Square"
+  print("square");
+  theCross.hide();
+  middleBlock.hide();
+  square.hide();
+  newWall= new Wall(100, 100, 40, 100);
+  walls.push(newWall);
+  newWall = new Wall(100, 100, 100, 40);
+  walls.push(newWall);
+  newWall = new Wall(100, 300, 40, 100);
+  walls.push(newWall);
+  newWall = new Wall(100, 360, 100, 40);
+  walls.push(newWall);
+  newWall = new Wall(360, 300, 40, 100);
+  walls.push(newWall);
+  newWall = new Wall(300, 360, 100, 40);
+  walls.push(newWall);
+  newWall = new Wall(360, 100, 40, 100);
+  walls.push(newWall);
+  newWall = new Wall(300, 100, 100, 40);
+  walls.push(newWall);
+  newWall = new Wall(200,200,100,100);
+  walls.push(newWall);
+  player1 = new Player(50,250, "red");
+  player2 = new Player(450,250, "blue");
 }
