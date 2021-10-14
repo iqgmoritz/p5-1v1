@@ -160,23 +160,28 @@ function draw() {
   //powerup spawning
   //mapTheCross:
   r = int(random(1, 1000));
-  if (map === "TheCross"){
+
     if (powerup.x === -100){
     if (r === 1){
+      if (map === "TheCross"){
       powerup = new PowerUp(250, 250);
     }
-  }
+  
   if (map === "MiddleBlock"){
-    if (powerup.x === -100){
-      powerup = new Powerup(250,50); 
-    }
+
+
+      powerup = new PowerUp(250,50); 
+    
+  
   }
   if (map === "Square"){
-    if (powerup.x === -100){
+
       powerup = new PowerUp(250, 350);
     }
+  
+  
   }
-  }
+}
 
 
   //movement

@@ -159,10 +159,10 @@ class Player {
             this.y = this.y + sin(this.rotation % 90) * 2.5;
           } else {
             if (this.rotation === 0) {
-              this.y += 2.5;
+              this.y -= 2.5;
             } else {
               if (this.rotation === 90) {
-                this.x += 2.5;
+                this.x -= 2.5;
               } else {
                 if (this.rotation === 180) {
                   this.y -= 2.5;
@@ -171,7 +171,7 @@ class Player {
                     this.x -= 2.5;
                   } else {
                     if (this.rotation === 360) {
-                      this.y -= 2.5;
+                      this.y+= 2.5;
                     }
                   }
                 }
