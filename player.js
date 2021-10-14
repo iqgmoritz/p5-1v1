@@ -168,7 +168,7 @@ class Player {
                   this.y -= 2.5;
                 } else {
                   if (this.rotation === 270) {
-                    this.x -= 2.5;
+                    this.x += 2.5;
                   } else {
                     if (this.rotation === 360) {
                       this.y+= 2.5;

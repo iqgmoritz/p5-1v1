@@ -9,18 +9,26 @@ let r;
 let gameOver = false;
 let map = "?";
 let theCross;
+let theCrossImg;
 let middleBlock;
+let middleBlockImg;
 let square;
+let squareImg;
 
+function preload(){
+theCrossImg = loadImage('thecross.png');
+middleBlockImg = loadImage('middleblock.png');
+squareImg = loadImage('square.png');
+}
 function setup() {
   createCanvas(500, 500);
   angleMode(DEGREES);
   theCross = createButton("The Cross");
   theCross.position(50, 150);
   middleBlock = createButton("Middle Block");
-  middleBlock.position(150, 150);
+  middleBlock.position(155, 150);
   square = createButton("Square");
-  square.position(250, 150);
+  square.position(280, 150);
 }
 
 function draw() {
@@ -31,10 +39,13 @@ function draw() {
   text("Karte auswählen", 150, 100);
   theCross.show();
   theCross.mousePressed(mapTheCross);
+  image(theCrossImg, 40, 175, 100, 100);
   middleBlock.show();
   middleBlock.mousePressed(mapMiddleBlock);
+  image(middleBlockImg, 150, 175, 100, 100);
   square.show();
   square.mousePressed(mapSquare);
+  image(squareImg, 260, 175, 100, 100);
   return;
   }
   //game over:
