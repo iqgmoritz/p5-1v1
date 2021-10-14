@@ -1,4 +1,4 @@
-# Tank Game
+# p5 1v1
 *This game was created as part of the Code Week 2021 at CSB System SE Germany.*
 ### Game Idea
 The game idea is quite simple:
