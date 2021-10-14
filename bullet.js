@@ -15,52 +15,39 @@ class Bullet {
   move() {
     if (this.origRot % 360 > 0 && this.origRot < 90) {
       //print("fall1");
-
       this.x = this.x + sin(this.origRot % 90) * 2;
       this.y = this.y - cos(this.origRot % 90) * 2
-    } else {
-      if (this.origRot % 360 > 90 && this.origRot < 180) {
-        //print("fall2");
-
-        this.x = this.x + cos(this.origRot % 90) * 2;
-        this.y = this.y + sin(this.origRot % 90) * 2;
-      } else {
-        if (this.origRot % 360 > 180 && this.origRot < 270) {
-          //print("fall3");
-
-          this.x = this.x - sin(this.origRot % 90) * 2;
-          this.y = this.y + cos(this.origRot % 90) * 2;
-        } else {
-          if (this.origRot % 360 > 270 && this.origRot < 360) {
-            //print("fall4");
-
-            this.x = this.x - cos(this.origRot % 90) * 2;
-            this.y = this.y - sin(this.origRot % 90) * 2;
-          } else {
-            if (this.origRot === 0) {
-              this.y -= 2;
-            } else {
-              if (this.origRot === 90) {
-                this.x += 2;
-              } else {
-                if (this.origRot === 180) {
-                  this.y += 2;
-                } else {
-                  if (this.origRot === 270) {
-                    this.x -= 2;
-                  } else {
-                    if (this.origRot === 360) {
-                      this.y -= 2;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+    } else if (this.origRot % 360 > 90 && this.origRot < 180) {
+      //print("fall2");
+      this.x = this.x + cos(this.origRot % 90) * 2;
+      this.y = this.y + sin(this.origRot % 90) * 2;
+    } else if (this.origRot % 360 > 180 && this.origRot < 270) {
+      //print("fall3");
+      this.x = this.x - sin(this.origRot % 90) * 2;
+      this.y = this.y + cos(this.origRot % 90) * 2;
+    } else if (this.origRot % 360 > 270 && this.origRot < 360) {
+      //print("fall4");
+      this.x = this.x - cos(this.origRot % 90) * 2;
+      this.y = this.y - sin(this.origRot % 90) * 2;
+    } else if (this.origRot === 0) {
+      this.y -= 2;
+    } else if (this.origRot === 90) {
+      this.x += 2;
+    } else if (this.origRot === 180) {
+      this.y += 2;
+    } else if (this.origRot === 270) {
+      this.x -= 2;
+    } else if (this.origRot === 360) {
+      this.y -= 2;
     }
   }
+
+
+
+
+
+
+
 
   collide(player1, player2) {
     if (this.origin === "player1") {
@@ -70,7 +57,7 @@ class Bullet {
         this.y > player2.y - 10 &&
         this.y < player2.y + 10
       ) {
-        print("collision with player2");
+        //print("collision with player2");
         return "player1";
       }
     }
@@ -81,7 +68,7 @@ class Bullet {
         this.y > player1.y - 10 &&
         this.y < player1.y + 10
       ) {
-        print("collision with player1");
+        //print("collision with player1");
         return "player2";
       }
     }
