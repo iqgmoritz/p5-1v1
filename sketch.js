@@ -294,8 +294,8 @@ function mapTheCross() {
   newWall = new Wall(330,300,30,120);
   walls.push(newWall);
 
-  player1 = new Player(100, 100, "red");
-  player2 = new Player(400, 370, "blue");
+  player1 = new Player(100, 100, "red", 135);
+  player2 = new Player(400, 370, "blue", 315);
   powerup = new PowerUp(250,250);
 }
 
@@ -320,8 +320,8 @@ function mapMiddleBlock(){
   newWall = new Wall(400, 0, 100, 100);
   walls.push(newWall);
 
-  player1 = new Player(50, 250, "red");
-  player2 = new Player(450, 250, "blue");
+  player1 = new Player(50, 250, "red", 90);
+  player2 = new Player(450, 250, "blue", 270);
   powerup = new PowerUp(250, 50);
 }
 
@@ -349,7 +349,7 @@ function mapSquare(){
   walls.push(newWall);
   newWall = new Wall(200,200,100,100);
   walls.push(newWall);
-  player1 = new Player(50,250, "red");
-  player2 = new Player(450,250, "blue");
+  player1 = new Player(50,250, "red", 90);
+  player2 = new Player(450,250, "blue", 270);
   powerup = new PowerUp(250, 380);
 }

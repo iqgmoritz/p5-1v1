@@ -1,9 +1,9 @@
 class Player {
-  constructor(playerX, playerY, playerColor) {
+  constructor(playerX, playerY, playerColor, playerRot) {
     this.x = playerX;
     this.y = playerY;
     this.color = playerColor;
-    this.rotation = 0;
+    this.rotation = playerRot;
     this.shield = false;
   }
 
