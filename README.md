@@ -1,5 +1,8 @@
 # p5 1v1
 *This game was created as part of the Code Week 2021 at CSB System SE Germany.*
+
+## Play this game: 
+**this game is playable [here](https://iqgmoritz.github.io/p5-1v1)**
 ### Game Idea
 The game idea is quite simple:
 you control one of the tanks, which are represented by small circles in red and blue color. A line in the circle represents the barrel of the tank. You can turn this barrel to the left and right, but you can always only go along the barrel, so it's not possible to go sideways. You can fire bullets in the direction, your barrel is facing. You win by hitting the other tank with one of your bullets. There are also shield powerups spawning at random times. If you collect one of them, you gain a shield, thus giving you an extra life.
