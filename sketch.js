@@ -4,6 +4,8 @@ let newBullet;
 let bullets = [];
 let newWall;
 let walls = [];
+let powerup;
+let r;
 let gameOver = false;
 let map = "?";
 let theCross;
@@ -56,6 +58,17 @@ function draw() {
   background(220);
   player1.isOutsideCanvas();
   player2.isOutsideCanvas();
+  powerup.collectCheck(player1);
+  if (powerup.collectCheck(player1)){
+    powerup.x = -100;
+    powerup.y = -100;
+  }
+  if (powerup.collectCheck(player2)){
+    powerup.x = -100;
+    powerup.y = -100;
+  }
+  powerup.collectCheck(player2);
+
 
   //player-wall collision:
   for (let i = 0; i < walls.length; i++) {
@@ -89,6 +102,8 @@ function draw() {
 
   player1.draw();
   player2.draw();
+ powerup.draw();
+
 
   //bullet-bullet collision:
   for (let i = 0; i < bullets.length; i++) {
@@ -111,21 +126,58 @@ function draw() {
     bullets[i].draw();
     bullets[i].move();
 
-    if (bullets[i].collide(player1, player2) === "player1") {
+    if (bullets[i].collide(player1, player2) === "player1" && player2.shield === false) {
       gameOver = "1";
       console.log("Spieler 1 gewinnt");
+      bullets.splice(i,1);
     } else {
-      if (bullets[i].collide(player1, player2) === "player2") {
-        gameOver = "2";
-        console.log("Spieler 2 gewinnt");
+      if (bullets[i].collide(player1, player2) === "player1" && player2.shield === true ){
+        print("shieldpop player 1");
+        player2.shield = false;
+        bullets.splice(i,1);
+      } else{
+        if (bullets[i].collide(player1, player2) === "player2" && player1.shield === false) {
+          gameOver = "2";
+          console.log("Spieler 2 gewinnt");
+          bullets.splice(i,1);
+        } else{
+          if (bullets[i].collide(player1, player2) === "player2" && player1.shield === true){
+            player1.shield = false;
+            bullets.splice(i,1);
+          }
+        }
       }
-    }
+    } 
+  }
 
+  for (let i = 0; i < bullets.length; i++){
     //bullet out of bounds:
     if (bullets[i].isOutsideCanvas()) {
       bullets.splice(i, 1);
     }
   }
+
+  //powerup spawning
+  //mapTheCross:
+  r = int(random(1, 1000));
+  if (map === "TheCross"){
+    if (powerup.x === -100){
+    if (r === 1){
+      powerup = new PowerUp(250, 250);
+    }
+  }
+  if (map === "MiddleBlock"){
+    if (powerup.x === -100){
+      powerup = new Powerup(250,50); 
+    }
+  }
+  if (map === "Square"){
+    if (powerup.x === -100){
+      powerup = new PowerUp(250, 350);
+    }
+  }
+  }
+
 
   //movement
   if (keyIsDown(65)) {
@@ -215,6 +267,7 @@ function keyPressed() {
   draw();
   bullets = [];
   walls = [];
+  powerup.x = -100;
   }
 }
 
@@ -243,6 +296,7 @@ function mapTheCross() {
 
   player1 = new Player(100, 100, "red");
   player2 = new Player(400, 370, "blue");
+  powerup = new PowerUp(250,250);
 }
 
 function mapMiddleBlock(){
@@ -265,8 +319,10 @@ function mapMiddleBlock(){
   walls.push(newWall);
   newWall = new Wall(400, 0, 100, 100);
   walls.push(newWall);
-  player1 = new Player(125, 125, "red");
-  player2 = new Player(375, 375, "blue");
+
+  player1 = new Player(50, 250, "red");
+  player2 = new Player(450, 250, "blue");
+  powerup = new PowerUp(250, 50);
 }
 
 function mapSquare(){
@@ -295,4 +351,5 @@ function mapSquare(){
   walls.push(newWall);
   player1 = new Player(50,250, "red");
   player2 = new Player(450,250, "blue");
+  powerup = new PowerUp(250, 380);
 }

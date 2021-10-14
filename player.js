@@ -4,12 +4,20 @@ class Player {
     this.y = playerY;
     this.color = playerColor;
     this.rotation = 0;
+    this.shield = false;
   }
 
   draw() {
+    if (this.shield === true){
+      strokeWeight(1);
+      fill('lightblue');
+      circle(this.x, this.y, 30);
+      strokeWeight(4);
+    }
     fill(this.color);
     circle(this.x, this.y, 20);
     strokeWeight(4);
+
     //print("rotation: ", this.rotation);
     if (this.rotation > 360) {
       this.rotation -= 360;
