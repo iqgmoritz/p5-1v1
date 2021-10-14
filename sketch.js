@@ -37,7 +37,7 @@ function draw() {
   if (map === "?") {
     background('grey');
     fill('black');
-    text("Karte auswählen", 150, 100);
+    text("select map", 150, 100);
     theCross.show();
     theCross.mousePressed(mapTheCross);
     image(theCrossImg, 40, 175, 100, 100);
@@ -55,12 +55,12 @@ function draw() {
       background("red");
       fill('black');
       textSize(30);
-      text("Rot hat gewonnen", 120, 200);
+      text("red wins", 120, 200);
     } else if (gameOver === "2") {
       background("blue");
       fill('black');
       textSize(30);
-      text("Blau hat gewonnen", 120, 200);
+      text("blue wins", 120, 200);
 
     }
     return;
