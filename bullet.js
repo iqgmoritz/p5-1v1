@@ -43,12 +43,6 @@ class Bullet {
   }
 
 
-
-
-
-
-
-
   collide(player1, player2) {
     if (this.origin === "player1") {
       if (

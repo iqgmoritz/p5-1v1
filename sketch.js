@@ -15,6 +15,8 @@ let middleBlock;
 let middleBlockImg;
 let square;
 let squareImg;
+let winsRed = 0;
+let winsBlue = 0;
 
 function preload() {
   theCrossImg = loadImage('thecross.png');
@@ -49,19 +51,19 @@ function draw() {
     image(squareImg, 260, 175, 100, 100);
     return;
   }
+
   //game over:
   if (gameOver != false) {
     if (gameOver === "1") {
       background("red");
       fill('black');
       textSize(30);
-      text("red wins", 120, 200);
+      text("red wins", 200, 230);
     } else if (gameOver === "2") {
       background("blue");
       fill('black');
       textSize(30);
-      text("blue wins", 120, 200);
-
+      text("blue wins", 200, 230);
     }
     return;
   }
@@ -70,6 +72,7 @@ function draw() {
   player1.isOutsideCanvas();
   player2.isOutsideCanvas();
   powerup.collectCheck(player1);
+
   if (powerup.collectCheck(player1)) {
     powerup.x = -100;
     powerup.y = -100;
@@ -78,7 +81,14 @@ function draw() {
     powerup.x = -100;
     powerup.y = -100;
   }
-  powerup.collectCheck(player2);
+  if (powerup.collectCheck(player2)){
+    powerup.x = -100;
+    powerup.y = -100;
+  }
+  if (powerup.collectCheck(player2)){
+    powerup.x = -100;
+    powerup.y = -100;
+  }
 
 
   //player-wall collision:
@@ -111,6 +121,11 @@ function draw() {
     }
   }
 
+  fill('red');
+  text(winsRed, 20, 20)
+  fill('blue');
+  text(winsBlue, 480, 20);
+  fill('black');
   player1.draw();
   player2.draw();
   powerup.draw();
@@ -137,16 +152,17 @@ function draw() {
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].draw();
     bullets[i].move();
-
     if (bullets[i].collide(player1, player2) === "player1" && player2.shield === false) {
       gameOver = "1";
       bullets.splice(i, 1);
+      winsRed += 1;
     } else if (bullets[i].collide(player1, player2) === "player1" && player2.shield === true) {
       player2.shield = false;
       bullets.splice(i, 1);
     } else if (bullets[i].collide(player1, player2) === "player2" && player1.shield === false) {
       gameOver = "2";
       bullets.splice(i, 1);
+      winsBlue += 1;
     } else if (bullets[i].collide(player1, player2) === "player2" && player1.shield === true) {
       player1.shield = false;
       bullets.splice(i, 1);
@@ -286,6 +302,10 @@ function keyPressed() {
     bullets = [];
     walls = [];
     powerup.x = -100;
+  }
+  if (keyCode === 8){
+    winsRed = 0;
+    winsBlue = 0;
   }
 }
 
