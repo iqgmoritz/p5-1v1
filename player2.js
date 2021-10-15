@@ -153,14 +153,14 @@ class Player {
     if (this.x < 10) {
       this.x = 10;
     }
-    if (this.x > canvas.width / 2 - 10) {
-      this.x = canvas.width / 2 - 10;
+    if (this.x > width - 10) {
+      this.x = width - 10;
     }
     if (this.y < 10) {
       this.y = 10;
     }
-    if (this.y > canvas.height / 2 - 10) {
-      this.y = canvas.height / 2 - 10;
+    if (this.y > height - 10) {
+      this.y = height - 10;
     }
   }
 
