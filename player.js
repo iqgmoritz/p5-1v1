@@ -5,6 +5,7 @@ class Player {
     this.color = playerColor;
     this.rotation = playerRot;
     this.shield = false;
+    this.alive = true;
   }
 
   draw() {
