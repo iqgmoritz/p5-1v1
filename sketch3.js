@@ -1,5 +1,6 @@
 let player1;
 let player2;
+let player3;
 let newBullet;
 let bullets = [];
 let newWall;
@@ -17,6 +18,7 @@ let square;
 let squareImg;
 let winsRed = 0;
 let winsBlue = 0;
+let winsGreen = 0;
 
 function preload() {
   theCrossImg = loadImage('thecross.png');
@@ -64,6 +66,11 @@ function draw() {
       fill('black');
       textSize(30);
       text("blue wins", 200, 230);
+    } else if (gameOver === "3"){
+      background("green");
+      fill('green');
+      textSize(30);
+      text("green wins", 200, 230);
     }
     return;
   }
@@ -71,7 +78,7 @@ function draw() {
   background(220);
   player1.isOutsideCanvas();
   player2.isOutsideCanvas();
-  powerup.collectCheck(player1);
+  player3.isOutsideCanvas();
 
   if (powerup.collectCheck(player1)) {
     powerup.x = -100;
@@ -81,11 +88,7 @@ function draw() {
     powerup.x = -100;
     powerup.y = -100;
   }
-  if (powerup.collectCheck(player2)){
-    powerup.x = -100;
-    powerup.y = -100;
-  }
-  if (powerup.collectCheck(player2)){
+  if (powerup.collectCheck(player3)) {
     powerup.x = -100;
     powerup.y = -100;
   }
@@ -119,15 +122,38 @@ function draw() {
     if (walls[i].playerCollide(player2) === "t") {
       player2.wallCollideT(walls[i].y + walls[i].height);
     }
+
+    if (walls[i].playerCollide(player3) === "r") {
+      player3.wallCollideR(walls[i].x);
+    }
+    if (walls[i].playerCollide(player3) === "l") {
+      player3.wallCollideL(walls[i].x + walls[i].width);
+    }
+    if (walls[i].playerCollide(player3) === "b") {
+      player3.wallCollideB(walls[i].y);
+    }
+    if (walls[i].playerCollide(player3) === "t") {
+      player3.wallCollideT(walls[i].y + walls[i].height);
+    }
   }
 
   fill('red');
   text(winsRed, 20, 20)
   fill('blue');
   text(winsBlue, 480, 20);
+  fill('green');
+  text(winsGreen, 240,20);
   fill('black');
-  player1.draw();
+
+  if (player1.alive === true) {
+    player1.draw();
+  }
+  if (player2.alive === true){
   player2.draw();
+  }
+  if (player3.alive){
+  player3.draw();
+  }
   powerup.draw();
 
 
@@ -152,22 +178,39 @@ function draw() {
   for (let i = 0; i < bullets.length; i++) {
     bullets[i].draw();
     bullets[i].move();
-    if (bullets[i].collide(player1, player2) === "player1" && player2.shield === false) {
-      gameOver = "1";
+    if (bullets[i].collide(player1, player2, player3) === "player1" && player1.shield === false && player1.alive === true) {
+      player1.alive = false;
+      //gameOver = "2";
       bullets.splice(i, 1);
-      winsRed += 1;
-    } else if (bullets[i].collide(player1, player2) === "player1" && player2.shield === true) {
-      player2.shield = false;
-      bullets.splice(i, 1);
-    } else if (bullets[i].collide(player1, player2) === "player2" && player1.shield === false) {
-      gameOver = "2";
-      bullets.splice(i, 1);
-      winsBlue += 1;
-    } else if (bullets[i].collide(player1, player2) === "player2" && player1.shield === true) {
+    } else if (bullets[i].collide(player1, player2, player3) === "player1" && player1.shield === true && player1.alive === true) {
       player1.shield = false;
       bullets.splice(i, 1);
+    } else if (bullets[i].collide(player1, player2, player3) === "player2" && player2.shield === false && player2.alive === true) {
+      player2.alive = false;
+      //gameOver = "1";
+      bullets.splice(i, 1);
+    } else if (bullets[i].collide(player1, player2, player3) === "player2" && player2.shield === true && player2.alive === true) {
+      player2.shield = false;
+      bullets.splice(i, 1);
+    } else if (bullets[i].collide(player1, player2, player3) ==="player3" && player3.shield === false && player3.alive === true) {
+      player3.alive = false;
+      bullets.splice(i,1);
+    } else if(bullets[i].collide(player1, player2, player3) === "player3" && player3.shield === true && player3.alive === true) {
+      player3.shield = false;
+      bullets.splice(i,1);
     }
   }
+
+  if (player1.alive === true && player2.alive === false && player3.alive === false){
+    gameOver = "1";
+    winsRed += 1;
+  } else if(player1.alive === false && player2.alive === true && player3.alive === false){
+    gameOver = "2";
+    winsBlue += 1;
+  } else if(player1.alive === false && player2.alive === false && player3.alive === true){
+    gameOver = "3";
+    winsGreen += 1;
+  } 
 
 
   for (let i = 0; i < bullets.length; i++) {
@@ -214,20 +257,22 @@ function draw() {
 
 
   //movement
-  if (keyIsDown(65)) {
+  //player1
+  if (keyIsDown(65) && player1.alive === true) {
     player1.rotateL();
     // print("rotateL");
   }
-  if (keyIsDown(68)) {
+  if (keyIsDown(68) && player1.alive === true) {
     player1.rotateR();
     // print("rotateR");
   }
-  if (keyIsDown(87)) {
+  if (keyIsDown(87) && player1.alive === true) {
     player1.moveFw();
   }
-  if (keyIsDown(83)) {
+  if (keyIsDown(83) && player1.alive === true) {
     player1.moveBw();
   }
+  //player2
   if (keyIsDown(74)) {
     player2.rotateL();
   }
@@ -239,6 +284,19 @@ function draw() {
   }
   if (keyIsDown(75)) {
     player2.moveBw();
+  }
+  //player3
+  if (keyIsDown(84)) {
+    player3.moveFw();
+  }
+  if (keyIsDown(71)) {
+    player3.moveBw();
+  }
+  if (keyIsDown(72)) {
+    player3.rotateR();
+  }
+  if (keyIsDown(70)) {
+    player3.rotateL();
   }
 
   for (let i = 0; i < bullets.length; i++) {
@@ -255,10 +313,10 @@ function draw() {
   }
 } //draw ende
 
-//shooting:
 function keyPressed() {
   // print(keyCode);
-  if (keyCode === 16) {
+  //player1 shoot
+  if (keyCode === 16 && player1.alive === true) {
     newBullet = new Bullet(
       player1.x,
       player1.y,
@@ -269,7 +327,8 @@ function keyPressed() {
     bullets.push(newBullet);
     // print(bullets);
   }
-  if (keyCode === 66) {
+  //player2 shoot
+  if (keyCode === 66 && player2.alive === true) {
     newBullet = new Bullet(
       player2.x,
       player2.y,
@@ -279,9 +338,23 @@ function keyPressed() {
     );
     bullets.push(newBullet);
   }
+  //player3 shoot
+  if (keyCode === 88 && player3.alive === true) {
+    newBullet = new Bullet(
+      player3.x,
+      player3.y,
+      "green",
+      "player3",
+      player3.rotation);
+    bullets.push(newBullet);
+  }
+  //reset
   if (keyCode === 13) {
     bullets = [];
     walls = [];
+    player1.alive = true;
+    player2.alive = true;
+    player3.alive = true;
     gameOver = false;
     setup();
     draw();
@@ -295,17 +368,23 @@ function keyPressed() {
       mapSquare();
     }
   }
+  //back to main screen
   if (keyCode === 27) {
     map = "?"
     setup();
     draw();
     bullets = [];
     walls = [];
+    player1.alive = true;
+    player2.alive = true;
+    player3.alive = true;
     powerup.x = -100;
   }
-  if (keyCode === 8){
+  //reset score
+  if (keyCode === 8) {
     winsRed = 0;
     winsBlue = 0;
+    winsGreen = 0;
   }
 }
 
@@ -334,6 +413,7 @@ function mapTheCross() {
 
   player1 = new Player(100, 100, "red", 135);
   player2 = new Player(400, 370, "blue", 315);
+  player3 = new Player(100, 370, "green", 45);
   powerup = new PowerUp(250, 250);
 }
 
@@ -360,6 +440,7 @@ function mapMiddleBlock() {
 
   player1 = new Player(50, 250, "red", 90);
   player2 = new Player(450, 250, "blue", 270);
+  player3 = new Player(250, 450, "green", 0);
   powerup = new PowerUp(250, 50);
 }
 
@@ -389,5 +470,6 @@ function mapSquare() {
   walls.push(newWall);
   player1 = new Player(50, 250, "red", 90);
   player2 = new Player(450, 250, "blue", 270);
+  player3 = new Player(250, 75, "green", 180)
   powerup = new PowerUp(250, 380);
 }

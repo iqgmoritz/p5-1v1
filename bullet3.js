@@ -43,7 +43,7 @@ class Bullet {
   }
 
 
-  collide(player1, player2) {
+  collide(player1, player2, player3) {
     if (this.origin === "player1") {
       if (
         this.x > player2.x - 10 &&
@@ -52,7 +52,15 @@ class Bullet {
         this.y < player2.y + 10
       ) {
         //print("collision with player2");
-        return "player1";
+        return "player2";
+      }
+      if(
+        this.x > player3.x - 10 &&
+        this.x < player3.x + 10 &&
+        this.y > player3.y - 10 &&
+        this.y < player3.y + 10
+      ) {
+        return "player3";
       }
     }
     if (this.origin === "player2") {
@@ -63,6 +71,32 @@ class Bullet {
         this.y < player1.y + 10
       ) {
         //print("collision with player1");
+        return "player1";
+      }
+      if (
+        this.x > player3.x - 10 &&
+        this.x < player3.x + 10 &&
+        this.y > player3.y - 10 &&
+        this.y < player3.y + 10
+      ){
+        return "player3";
+      }
+    }
+    if (this.origin === "player3"){
+      if ( 
+        this.x > player1.x - 10 &&
+        this.x < player1.x + 10 &&
+        this.y > player1.y - 10 &&
+        this.y < player1.y + 10
+      ){
+        return "player1"
+      }
+      if (
+        this.x > player2.x - 10 &&
+        this.x < player2.x + 10 &&
+        this.y > player2.y - 10 &&
+        this.y < player2.y + 10
+      ) {
         return "player2";
       }
     }
