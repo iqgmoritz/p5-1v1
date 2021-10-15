@@ -34,12 +34,25 @@ you control one of the tanks, which are represented by small circles in red and 
 
 **B**: fire bullet
 
+### (optional) Player3:
+
+**T**: move forward
+
+**G**: move backwards
+
+**F**: rotate barrel left
+
+**H**: rotate barrel right
+
+**X**: fire bullet
 
 ## Menu Keys:
 
 **Esc**: go back to level selection
 
 **Enter**: restart game
+
+**Backspace**: Reset Scores
 
 ## Some more information and tips from my side:
 - you go a bit faster when going backwards
